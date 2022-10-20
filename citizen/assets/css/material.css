@@ -15,6 +15,11 @@ html {
 body {
   margin: 0;
 }
+h2{
+  font-size: 30px;
+  height: 50px;
+  background: wheat;
+}
 article,
 aside,
 details,
@@ -1179,7 +1184,7 @@ h6,
   font-family: inherit;
   font-weight: 400;
   line-height: 1.1;
-  color: black;
+  color: white;
 }
 h1 small,
 h2 small,
@@ -2736,7 +2741,7 @@ select[multiple].input-sm {
   line-height: 1.3333333;
   border-radius: 3px;
 }
-select.input-lg {-
+select.input-lg {
   height: 45px;
   line-height: 45px;
 }
@@ -4665,7 +4670,8 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 }
 .navbar-inverse .navbar-collapse,
 .navbar-inverse .navbar-form {
-  border-color: #0c84e4;
+  border-color: #FFFFFF !important;
+  /*border-color: #0c84e4;*/
 }
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .open > a:hover,

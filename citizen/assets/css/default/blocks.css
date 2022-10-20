@@ -578,7 +578,7 @@ Version: 1.0
 
 
 #header-3 .hero {
-	background: url('../img/mutabazi.jpg') no-repeat center center;
+	background: url('../img/cover2.jpg') no-repeat center center;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -637,12 +637,12 @@ Version: 1.0
 /*----------------------------------------------------*/
 
 .promo-1 {
-	background: url("../img/nida.jpg") center top no-repeat;
+	background: url("../../img/teta.jpeg") center top no-repeat;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
-	padding: 120px 0;
+	padding: 200px 0;
 }
 
 .promo-1 .video-wrapper {
