@@ -25,12 +25,12 @@ $userRow = mysqli_fetch_array($res, MYSQLI_ASSOC);
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-	<title>Peaple Dashboard</title>
+	<title>Dashboard</title>
 	<!-- Bootstrap -->
 	<!-- <link href="assets/css/bootstrap.min.css" rel="stylesheet"> -->
 	<link href="assets/css/material.css" rel="stylesheet">
 	<link href="assets/css/default/style.css" rel="stylesheet">
-	<!-- <link href="assets/css/default/style1.css" rel="stylesheet"> -->
+	<link href="assets/css/default/style1.css" rel="stylesheet">
 	<link href="assets/css/default/blocks.css" rel="stylesheet">
 	<link href="assets/css/date/bootstrap-datepicker.css" rel="stylesheet">
 	<link href="assets/css/date/bootstrap-datepicker3.css" rel="stylesheet">
@@ -62,20 +62,24 @@ $userRow = mysqli_fetch_array($res, MYSQLI_ASSOC);
 				<ul class="nav navbar-nav">
 					<ul class="nav navbar-nav">
 						<li><a href="citizen.php">Home</a></li>
-						<!-- <li><a href="profile.php?citizenId=<?php echo $userRow['icCitizen']; ?>" >Profile</a></li> -->
-						<li><a href="citizenapplist.php?citizenId=<?php echo $userRow['icCitizen']; ?>">Appointment</a></li>
+						<li><a href="profile.php">Profile</a></li>
+						<li><a href="citizenapplist.php?citizenId=<?php echo $userRow['id']; ?>">Appointment</a></li>
 					</ul>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $userRow['citizenFirstName']; ?> <?php echo $userRow['citizenLastName']; ?><b class="caret"></b></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<i class="fa fa-user"></i>
+							<?php echo $userRow['names']; ?>
+							<b class="caret"></b>
+						</a>
 						<ul class="dropdown-menu">
 							<li>
-								<a href="profile.php?citizenId=<?php echo $userRow['icCitizen']; ?>"><i class="fa fa-fw fa-user"></i> Profile</a>
+								<a href="profile.php"><i class="fa fa-fw fa-user"></i> Profile</a>
 							</li>
 							<li>
-								<a href="citizenapplist.php?citizenId=<?php echo $userRow['icCitizen']; ?>"><i class="glyphicon glyphicon-file"></i> Appointment</a>
+								<a href="citizenapplist.php"><i class="glyphicon glyphicon-file"></i> Appointment</a>
 							</li>
 							<li class="divider"></li>
 							<li>
@@ -94,28 +98,17 @@ $userRow = mysqli_fetch_array($res, MYSQLI_ASSOC);
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12 col-md-8">
-
-					<?php if ($userRow['citizenMaritialStatus'] == "") {
-						echo '<div class="row">
-						<div class="col-lg-12">
-							<div class="alert alert-danger">
-								<i class="fa fa-info-circle"></i> <strong>Please complete your profile.</strong>
-							</div>
-						</div>
-					</div>';
-					}
-					?>
 					<?php
 					echo '<div class="row">
 						<div class="col-lg-12">
 							<div class="alert alert-warning font-weight-bold">
-								Hello ' . $userRow['citizenFirstName'] . ' ' .  $userRow['citizenLastName'] . ' Make appointment today!
+								Hello ' . $userRow['names'] . ' Make appointment today!
 							</div>
 						</div>
 					</div>';
 					?>
 					<!-- notification end -->
-					<div class="input-group" style="margin-bottom:10px;">
+					<div class="input-group bg-black p-3 rounded" style="margin-bottom:10px;">
 						<div class="input-group-addon">
 							<i class="fa fa-calendar">
 							</i>

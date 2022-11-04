@@ -13,6 +13,9 @@
 .p-0 {
   padding: 0 !important;
 }
+.p-2 {
+  padding: 0.5rem !important;
+}
 .py-0 {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
@@ -72,4 +75,12 @@ margin-bottom: 0 !important;
 }
 .text-black {
   color: black !important;
+}
+
+td{
+  vertical-align: middle !important;
+}
+
+.font-normal{
+  font-size: 1rem !important;
 }

@@ -2,12 +2,12 @@
 session_start();
 include_once '../assets/conn/dbconnect.php';
 $session = $_SESSION['citizenSession'];
-$res = mysqli_query($con, "SELECT a.*, b.*,c.* FROM citizen a
-	JOIN appointment b
-		On a.icCitizen = b.citizenIc
-	JOIN employeeschedule c
-		On b.scheduleId=c.scheduleId
-	WHERE b.citizenIc ='$session'");
+$res = mysqli_query($con, "SELECT a.*, b.*,c.* FROM citizens a
+	JOIN appointments b
+		On a.id = b.citizen_id
+	JOIN schedules c
+		On b.schedule_id = c.id
+	WHERE b.citizen_id ='$session'");
 if (!$res) {
 	die("Error running $sql: " . mysqli_error($sql));
 }
@@ -51,12 +51,8 @@ $userRow = mysqli_fetch_array($res);
 				<ul class="nav navbar-nav">
 					<ul class="nav navbar-nav">
 						<li><a href="citizen.php">Home</a></li>
-						<?php
-						if ($userRow)
-							'<li>
-						<a href="citizenapplist.php?citizenId=' . $userRow['icCitizen'] . '">Appointment</a>
-						</li>'
-						?>
+						<li><a href="profile.php">Profile</a></li>
+						<li><a href="citizenapplist.php?citizenId=<?php echo $userRow['id']; ?>">Appointment</a></li>
 					</ul>
 				</ul>
 
@@ -64,23 +60,16 @@ $userRow = mysqli_fetch_array($res);
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<i class="fa fa-user"></i>
-							<?php echo $userRow['citizenFirstName'] ?? ""; ?> <?php echo $userRow['citizenLastName'] ?? ""; ?>
+							<?php echo $userRow['names']; ?>
 							<b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu">
-							<?php
-							if ($userRow)
-								'<li>
-						<a href="profile.php?citizenId=' . $userRow['icCitizen'] . '">
-						<i class="fa fa-fw fa-user"></i> Profile</a></a>
-						</li>'
-							?>
-							<?php
-							if ($userRow)
-								'<li>
-						<a href="citizenapplist.php?citizenId=' . $userRow['icCitizen'] . '">Appointment</a>
-						</li>'
-							?>
+							<li>
+								<a href="profile.php"><i class="fa fa-fw fa-user"></i> Profile</a>
+							</li>
+							<li>
+								<a href="citizenapplist.php"><i class="glyphicon glyphicon-file"></i> Appointment</a>
+							</li>
 							<li class="divider"></li>
 							<li>
 								<a href="citizenlogout.php?logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
@@ -104,8 +93,6 @@ $userRow = mysqli_fetch_array($res);
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th>ID</th>
-								<th>IC</th>
 								<th>Names</th>
 								<th>Schedule Day</th>
 								<th>Start Time</th>
@@ -114,28 +101,24 @@ $userRow = mysqli_fetch_array($res);
 							</tr>
 						</thead>
 						<tbody>
-
 							<?php
-							$res = mysqli_query($con, "SELECT a.*, b.*,c.* FROM citizen a JOIN appointment b On a.icCitizen = b.citizenIc JOIN employeeschedule c On b.scheduleId=c.scheduleId WHERE b.citizenIc ='$session'");
-
 							if (!$res) {
 								die("Error running $sql: " . mysqli_error($sql));
 							}
-							$userRow = mysqli_fetch_assoc($res);
+							$userRow = mysqli_fetch_array($res);
 
-							if ($userRow > 0) {
-								while ($userRow = mysqli_fetch_assoc($res)) {
-									echo "<tr>";
-									echo "<td>" . $userRow['appId'] . "</td>";
-									echo "<td>" . $userRow['citizenIc'] . "</td>";
-									echo "<td>" . $userRow['citizenLastName'] . "</td>";
-									echo "<td>" . $userRow['scheduleDay'] . " " . $userRow['scheduleDate'] . "</td>";
-									echo "<td>" . $userRow['startTime'] . "</td>";
-									echo "<td>" . $userRow['endTime'] . "</td>";
-									echo "<td><a href='invoice.php?appid=" . $userRow['appId'] . "' target='_blank'><span class='glyphicon glyphicon-print' aria-hidden='true'></span></a> </td></tr>";
-								}
+							if ($userRow) {
+								echo '<tr>';
+								echo '<td>' . $userRow['names'] . '</td>';
+								echo '<td>' . $userRow['date'] . '</td>';
+								echo '<td>' . $userRow['startTime'] . '</td>';
+								echo '<td>' . $userRow['endTime'] . '</td>';
+								echo '<td><a href="invoice.php?id=' . $userRow['id'] . '" class="btn btn-sm btn-primary">Print</a></td>';
+								echo '</tr>';
 							} else {
-								echo '<tr><td colspan="100" class="text-center pt-5">No appointments available</td></tr>';
+								echo '<tr>';
+								echo '<td colspan="5">No appointments</td>';
+								echo '</tr>';
 							}
 							?>
 						</tbody>

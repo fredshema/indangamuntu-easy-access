@@ -1,84 +1,53 @@
 <?php
 session_start();
 include_once '../assets/conn/dbconnect.php';
-$q = $_GET['q'];
-$res = mysqli_query($con,"SELECT * FROM employeeschedule WHERE scheduleDate='$q'");
+$q = $_GET['q'] ?? '';
+$res = mysqli_query($con, "SELECT * FROM schedules WHERE date='$q'");
 if (!$res) {
-die("Error running $sql: " . mysqli_error());
+    die("Error running $sql: " . mysqli_error($con));
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-    </head>
-    <body>
-        <?php
-        if (mysqli_num_rows($res)==0) {
-        echo "<div class='alert alert-danger' role='alert'>There is not appointment available at the moment. Please try again later.</div>";
-        
-        } else {
-        echo "   <table class='table table-hover'>";
-            echo " <thead>";
-                echo " <tr>";
-                    echo " <th>App Id</th>";
-                    echo " <th>Day</th>";
-                    echo " <th>Date</th>";
-                    echo "  <th>Start Time</th>";
-                    echo "  <th>End Time</th>";
-                    echo " <th>Availability</th>";
-                    echo "  <th>Book Now!</th>";
-                echo " </tr>";
-            echo "  </thead>";
-            echo "  <tbody>";
-                while($row = mysqli_fetch_array($res)) {
-                ?>
-                <tr>
-                    <?php
-                    // $avail=null;
-                    // $btnclick="";
-                    if ($row['bookAvail']!='available') {
-                    $avail="danger";
-                    $btnstate="disabled";
-                    $btnclick="danger";
-                    } else {
-                    $avail="primary";
-                    $btnstate="";
-                    $btnclick="primary";
-                    }
 
-                   
-                    // if ($rowapp['bookAvail']!="available") {
-                    // $btnstate="disabled";
-                    // } else {
-                    // $btnstate="";
-                    // }
-                    echo "<td>" . $row['scheduleId'] . "</td>";
-                    echo "<td>" . $row['scheduleDay'] . "</td>";
-                    echo "<td>" . $row['scheduleDate'] . "</td>";
+<div>
+    <?php
+    if (mysqli_num_rows($res) == 0) {
+        echo "<div class='alert alert-danger' role='alert'>There is no appointment available at the moment. Please try again later.</div>";
+    } else {
+    ?>
+        <table class="table table-hover bg-white">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Availability</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                while ($row = mysqli_fetch_array($res)) {
+                    if ($row['availability'] != 'available') {
+                        $avail = "danger";
+                        $btnstate = "disabled";
+                        $btnclick = "danger";
+                    } else {
+                        $avail = "primary";
+                        $btnstate = "";
+                        $btnclick = "primary";
+                    }
+                    echo "<tr>";
+                    echo "<td>" . $row['date'] . "</td>";
                     echo "<td>" . $row['startTime'] . "</td>";
                     echo "<td>" . $row['endTime'] . "</td>";
-                    echo "<td> <span class='label label-".$avail."'>". $row['bookAvail'] ."</span></td>";
-                    echo "<td><a href='appointment.php?&appid=" . $row['scheduleId'] . "&scheduleDate=".$q."' class='btn btn-".$btnclick." btn-xs' role='button' ".$btnstate.">Book Now</a></td>";
-                    // echo "<td><a href='appointment.php?&appid=" . $row['scheduleId'] . "&scheduleDate=".$q."'>Book</a></td>";
-                    // <td><button type='button' class='btn btn-primary btn-xs' data-toggle='modal' data-target='#exampleModal'>Book Now</button></td>";
-                    //triggered when modal is about to be shown
-                    ?>
-                    
-                    </script>
-                    <!-- ?> -->
-                </tr>
-                
-                <?php
-                }
+                    echo "<td> <span class='p-2 rounded text-white label-" . $avail . "'>" . $row['availability'] . "</span></td>";
+                    echo "<td><a href='appointment.php?&schedule_id=" . $row['id'] . "' class='btn btn-" . $btnclick . " btn-sm' role='button' " . $btnstate . ">Book Now</a></td>";
+                    echo "</tr>";
                 }
                 ?>
             </tbody>
-            <!-- modal start -->
-            
-            
-            
-            
-            
-        </body>
-    </html>
+        </table>
+    <?php
+    }
+    ?>
+</div>

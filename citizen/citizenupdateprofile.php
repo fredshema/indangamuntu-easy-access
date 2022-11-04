@@ -7,7 +7,7 @@ if(!isset($_SESSION['citizenSession']))
 {
 header("Location: citizendashboard.php");
 }
-$res=mysqli_query($con,"SELECT * FROM citizen WHERE icCitizen=".$_SESSION['citizenSession']);
+$res=mysqli_query($con,"SELECT * FROM citizen WHERE id=".$_SESSION['citizenSession']);
 $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
 ?>
 <?php
@@ -23,7 +23,7 @@ $citizenPhone = $_POST['citizenPhone'];
 $citizenEmail = $_POST['citizenEmail'];
 $citizenId = $_POST['citizenId'];
 // mysqli_query("UPDATE blogEntry SET content = $udcontent, title = $udtitle WHERE id = $id");
-$res=mysqli_query($con,"UPDATE citizen SET citizenFirstName='$citizenFirstName', citizenLastName='$citizenLastName', citizenMaritialStatus='$citizenMaritialStatus', citizenDOB='$citizenDOB', citizenGender='$citizenGender', citizenAddress='$citizenAddress', citizenPhone=$citizenPhone, citizenEmail='$citizenEmail' WHERE icCitizen=".$_SESSION['citizenSession']);
+$res=mysqli_query($con,"UPDATE citizen SET citizenFirstName='$citizenFirstName', citizenLastName='$citizenLastName', citizenMaritialStatus='$citizenMaritialStatus', citizenDOB='$citizenDOB', citizenGender='$citizenGender', citizenAddress='$citizenAddress', citizenPhone=$citizenPhone, citizenEmail='$citizenEmail' WHERE id=".$_SESSION['citizenSession']);
 // $userRow=mysqli_fetch_array($res);
 header( 'Location: citizenprofile.php' ) ;
 }
@@ -252,7 +252,7 @@ $widowed = "checked";
                                 
                                 <div class="panel panel-info">
                                     <div class="panel-heading">
-                                        <h2 class="panel-title"><?php echo $userRow['citizenFirstName']; ?> <?php echo $userRow['citizenLastName']; ?></h2>
+                                        <h2 class="panel-title"><?php echo $userRow['names']; ?></h2>
                                     </div>
                                     <div class="panel-body">
                                         <div class="row">
@@ -265,11 +265,11 @@ $widowed = "checked";
                                                         <tbody>
                                                             <tr>
                                                                 <td>CitizenId:</td>
-                                                                <td><?php echo $userRow['icCitizen']; ?></td>
+                                                                <td><?php echo $userRow['id']; ?></td>
                                                             </tr>
                                                             <tr>
-                                                                <td>CitizenFirstName:</td>
-                                                                <td><input type="text" class="form-control" name="citizenFirstName" value="<?php echo $userRow['citizenFirstName']; ?>"  /></td>
+                                                                <td>Names:</td>
+                                                                <td><input type="text" class="form-control" name="names" value="<?php echo $userRow['names']; ?>"  /></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>CitizenLastName</td>

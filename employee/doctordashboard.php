@@ -132,7 +132,7 @@ $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
                             $res=mysqli_query($con,"SELECT a.*, b.*,c.*
                                                     FROM citizen a
                                                     JOIN appointment b
-                                                    On a.icCitizen = b.citizenIc
+                                                    On a.id = b.citizenIc
                                                     JOIN employeeschedule c
                                                     On b.scheduleId=c.scheduleId
                                                     Order By appId desc");

@@ -146,7 +146,7 @@ $userRow = mysqli_fetch_array($res, MYSQLI_ASSOC);
 
                                 echo "<tbody>";
                                 echo "<tr>";
-                                echo "<td>" . $citizenRow['icCitizen'] . "</td>";
+                                echo "<td>" . $citizenRow['id'] . "</td>";
                                 echo "<td>" . $citizenRow['citizenLastName'] . "</td>";
                                 echo "<td>" . $citizenRow['password'] . "</td>";
                                 echo "<td>" . $citizenRow['citizenPhone'] . "</td>";
@@ -156,7 +156,7 @@ $userRow = mysqli_fetch_array($res, MYSQLI_ASSOC);
                                 echo "<td>" . $citizenRow['citizenDOB'] . "</td>";
                                 echo "<td>" . $citizenRow['citizenAddress'] . "</td>";
                                 echo "<form method='POST'>";
-                                echo "<td class='text-center'><a href='#' id='" . $citizenRow['icCitizen'] . "' class='delete'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a>
+                                echo "<td class='text-center'><a href='#' id='" . $citizenRow['id'] . "' class='delete'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a>
                             </td>";
                             }
                             echo "</tr>";

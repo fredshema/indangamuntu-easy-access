@@ -102,7 +102,7 @@ INSERT INTO `employeeschedule` (`scheduleId`, `scheduleDate`, `scheduleDay`, `st
 --
 
 CREATE TABLE `citizen` (
-  `icCitizen` bigint(12) NOT NULL,
+  `id` bigint(12) NOT NULL,
   `password` varchar(20) NOT NULL,
   `citizenFirstName` varchar(20) NOT NULL,
   `citizenLastName` varchar(20) NOT NULL,
@@ -118,7 +118,7 @@ CREATE TABLE `citizen` (
 -- Dumping data for table `citizen`
 --
 
-INSERT INTO `citizen` (`icCitizen`, `password`, `citizenFirstName`, `citizenLastName`, `citizenMaritialStatus`, `citizenDOB`, `citizenGender`, `citizenAddress`, `citizenPhone`, `citizenEmail`) VALUES
+INSERT INTO `citizen` (`id`, `password`, `citizenFirstName`, `citizenLastName`, `citizenMaritialStatus`, `citizenDOB`, `citizenGender`, `citizenAddress`, `citizenPhone`, `citizenEmail`) VALUES
 (920517105553, '123', 'Mohd', 'Mazlan', 'single', '1992-05-17', 'male', 'NO 153 BLOK MURNI\r\nKOLEJ CANSELOR UNIVERSITI PUTRA MALAYSIA', '173567758', 'lan.psis@gmail.com');
 
 --
@@ -150,7 +150,7 @@ ALTER TABLE `employeeschedule`
 -- Indexes for table `citizen`
 --
 ALTER TABLE `citizen`
-  ADD PRIMARY KEY (`icCitizen`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -176,7 +176,7 @@ ALTER TABLE `employeeschedule`
 -- Constraints for table `appointment`
 --
 ALTER TABLE `appointment`
-  ADD CONSTRAINT `appointment_ibfk_4` FOREIGN KEY (`citizenIc`) REFERENCES `citizen` (`icCitizen`),
+  ADD CONSTRAINT `appointment_ibfk_4` FOREIGN KEY (`citizenIc`) REFERENCES `citizen` (`id`),
   ADD CONSTRAINT `appointment_ibfk_5` FOREIGN KEY (`scheduleId`) REFERENCES `employeeschedule` (`scheduleId`);
 COMMIT;
 
